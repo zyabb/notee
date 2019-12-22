@@ -16,27 +16,52 @@ class SidebarComponent extends React.Component {
 
   render() {
     const { notes, classes, selectedNoteIndex } = this.props;
-    return (
-      <div className={classes.sidebarContainer}>
-        <Button className={classes.newNoteBtn} onClick={this.newNoteBtnClick}>
-          {this.state.addingNote ? 'Cancel' : 'New Note'}
-        </Button>
-        {this.state.addingNote ? (
-          <div>
-            <input
-              type="text"
-              className={classes.newNoteInput}
-              placeholder="Enter note title"
-              onKeyUp={e => this.updateTitle(e.target.value)}
-            ></input>
-            <Button className={classes.newNoteSubmitBtn} onClick={this.newNote}>
-              Submit Note
-            </Button>
-          </div>
-        ) : null}
-      </div>
-    );
+    if (notes) {
+      return (
+        <div className={classes.sidebarContainer}>
+          <Button className={classes.newNoteBtn} onClick={this.newNoteBtnClick}>
+            {this.state.addingNote ? 'Cancel' : 'New Note'}
+          </Button>
+          {this.state.addingNote ? (
+            <div>
+              <input
+                type="text"
+                className={classes.newNoteInput}
+                placeholder="Enter note title"
+                onKeyUp={e => this.updateTitle(e.target.value)}
+              ></input>
+              <Button
+                className={classes.newNoteSubmitBtn}
+                onClick={this.newNote}
+              >
+                Submit Note
+              </Button>
+            </div>
+          ) : null}
+          <List>
+            {notes.map((_note, _index) => {
+              return (
+                <div key={_index}>
+                  <SidebarComponent
+                    _note={_note}
+                    _index={_index}
+                    selectedNoteIndex={selectedNoteIndex}
+                    selectNote={this.selectNote}
+                    deleteNote={this.deleteNote}
+                  ></SidebarComponent>
+                  <Divider></Divider>
+                </div>
+              );
+            })}
+          </List>
+        </div>
+      );
+    } else {
+      return <div>Add a note?</div>;
+    }
   }
+  selectNote = id => {};
+  deleteNote = id => {};
   updateTitle = text => {
     this.setState({ title: text });
   };
