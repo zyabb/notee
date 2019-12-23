@@ -4,6 +4,7 @@ import styles from './styles';
 import List from '@material-ui/core/List';
 import { Divider, Button } from '@material-ui/core';
 import SidebarItemComponent from '../sidebaritem/SidebarItem';
+import SidebarItem from '../sidebaritem/SidebarItem';
 
 class SidebarComponent extends React.Component {
   constructor() {
@@ -42,13 +43,13 @@ class SidebarComponent extends React.Component {
             {notes.map((_note, _index) => {
               return (
                 <div key={_index}>
-                  <SidebarComponent
+                  <SidebarItem
                     _note={_note}
                     _index={_index}
                     selectedNoteIndex={selectedNoteIndex}
                     selectNote={this.selectNote}
                     deleteNote={this.deleteNote}
-                  ></SidebarComponent>
+                  ></SidebarItem>
                   <Divider></Divider>
                 </div>
               );
