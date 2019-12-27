@@ -74,20 +74,21 @@ class App extends React.Component {
 
   deleteNote = note => {
     const noteIndex = this.state.notes.indexOf(note);
+    const theSelecteNote = this.state.selectedNote; //the real id in DB
     this.setState({
       notes: this.state.notes.filter(_note => _note !== note)
     });
+    const newIdx = this.state.notes.indexOf(
+      this.state.notes.filter(_note => _note === theSelecteNote)[0]
+    );
+
     if (this.state.selectedNoteIndex === noteIndex) {
       this.setState({ selectedNoteIndex: null, selectedNote: null });
     } else {
       this.state.notes.length > 1
-        ? this.selectNote(
-            this.state.notes[this.state.selectedNoteIndex - 1],
-            this.state.selectedNoteIndex - 1
-          )
+        ? this.selectNote(this.state.notes[newIdx], newIdx)
         : this.setState({ selectedNoteIndex: null, selectedNote: null });
     }
-
     firebase
       .firestore()
       .collection('notes')
