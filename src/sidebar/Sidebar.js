@@ -65,7 +65,8 @@ class SidebarComponent extends React.Component {
     this.props.selectNote(note, index);
   };
   deleteNote = note => {
-    console.log(note, 123);
+    console.log('deleteing');
+    this.props.deleteNote(note);
   };
   updateTitle = text => {
     this.setState({ title: text });
@@ -77,7 +78,8 @@ class SidebarComponent extends React.Component {
   newNote = () => {
     // this.props.newNote(this.state.title);
     console.log('newNote clicked');
-    // this.setState({ title: null, addingNote: false });
+    this.props.newNote(this.state.title);
+    this.setState({ title: null, addingNote: false });
   };
 }
 
